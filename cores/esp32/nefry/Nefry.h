@@ -37,6 +37,7 @@ public:
 		readSW(),
 		getPollingSW(),
 		getWifiEnabled(),
+		getDisplayStatusEnabled(),
 		isConfigureChanged();
 
 	String
@@ -83,6 +84,9 @@ public:
 
 		enableWifi(),
 		disableWifi(),
+
+		enableDisplayStatus(),
+		disableDisplayStatus(),
 
 		/* Pollingでスイッチの状態をチェック */
 		pollingSW(),
@@ -163,6 +167,7 @@ private:
 		_nefryState = 0;
 	int _nefryLedBlinkState[5];
 	const char * program;
+	static bool _displayStatusFlg;/* ディスプレイの状態表示の有効無効化 */
 };
 extern Nefry_lib Nefry;
 #endif

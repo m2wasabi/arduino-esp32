@@ -90,6 +90,7 @@ void Nefry_lib::nefry_loop() {
 
 void Nefry_lib::printDeviceInfo()
 {
+	if(!Nefry.getDisplayStatusEnabled()) { return; }
 	NefryDisplay.setAutoScrollFlg(true);
 	NefryDisplay.autoScrollFunc(getNefryDisplayInfo);
 }
@@ -422,6 +423,22 @@ void Nefry_lib::disableWifi() {
 bool Nefry_lib::getWifiEnabled() {
 	return NefryDataStore.getWifiBoot() == 1;
 }
+
+// ディスプレイステータスのON/OFF
+bool Nefry_lib::_displayStatusFlg = true;
+
+void Nefry_lib::enableDisplayStatus() {
+	_displayStatusFlg = true;
+}
+
+void Nefry_lib::disableDisplayStatus() {
+	_displayStatusFlg = false;
+}
+
+bool Nefry_lib::getDisplayStatusEnabled() {
+	return _displayStatusFlg;
+}
+
 // 設定が変更されたかどうか
 bool Nefry_lib::isConfigureChanged() {
 	return _configureChangedFlg;

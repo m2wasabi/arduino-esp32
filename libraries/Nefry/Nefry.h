@@ -17,7 +17,9 @@ public:
 		readSW(),
 		getPollingSW(),
 		getWifiEnabled(),
+		getDisplayStatusEnabled(),
 		isConfigureChanged();
+	// static bool getDisplayStatusEnabled();
 
 	String
 		getModuleID(),
@@ -64,6 +66,9 @@ public:
 		enableWifi(),
 		disableWifi(),
 
+		enableDisplayStatus(),
+		disableDisplayStatus(),
+
 		/* Pollingでスイッチの状態をチェック */
 		pollingSW(),
 
@@ -95,6 +100,10 @@ public:
 		setNefryState(int state);
 
 	ESP32WebServer* getWebServer();
+
+	// static void
+	// 	enableDisplayStatus(),
+	// 	disableDisplayStatus();
 
 	//下位互換
 
@@ -141,6 +150,7 @@ private:
 		_nefryState = 0;
 
 	const char * program;
+	// static bool _displayStatusFlg;/* ディスプレイの状態表示の有効無効化 */
 };
 extern Nefry_lib Nefry;
 #endif
