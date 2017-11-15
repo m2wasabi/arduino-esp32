@@ -28,6 +28,9 @@ void loopTask(void *pvParameters)
 	if (Nefry.getWriteMode() != true) {
 		delay(500);
 		setup();
+		if(Nefry.isConfigureChanged() == true) {
+			Nefry.reset();
+		}
 	}
 	for(;;) {
 		delay(5);
@@ -42,22 +45,28 @@ void NefryBackEnd(void *pvParameters) {
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 	Nefry.nefry_init();
-	NefryWeb.begin();
-	NefryWiFi.beginWeb();
-	NefryConfig.beginWeb();
-	NefryWebServer.begin();
-	NefryConsole.beginWeb();
-	NefryUpdate.setupWebLocalUpdate();
-	delay(500);
+	if(Nefry.getWifiEnabled()){
+		NefryWeb.begin();
+		NefryWiFi.beginWeb();
+		NefryConfig.beginWeb();
+		NefryWebServer.begin();
+		NefryConsole.beginWeb();
+		NefryUpdate.setupWebLocalUpdate();
+		delay(500);
+	}
 	for (;;) {
 		delay(1);
 		if (Nefry.getNefryState() == 1) {
-			NefryWebServer.run();
+			if(Nefry.getWifiEnabled()){
+				NefryWebServer.run();
+			}
 		}
 		else {
 			vTaskDelayUntil(&xLastWakeTime, 10 / portTICK_PERIOD_MS);
-			NefryWeb.run();
-			NefryWebServer.run();
+			if(Nefry.getWifiEnabled()){
+				NefryWeb.run();
+				NefryWebServer.run();
+			}
 			Nefry.pollingSW();
 			Nefry.nefry_loop();
 		}

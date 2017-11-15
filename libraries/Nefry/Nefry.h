@@ -15,7 +15,9 @@ public:
 		setStoreStr(String str, const int pointer),
 		getWriteMode(),
 		readSW(),
-		getPollingSW();
+		getPollingSW(),
+		getWifiEnabled(),
+		isConfigureChanged();
 
 	String
 		getModuleID(),
@@ -58,6 +60,9 @@ public:
 
 		enableSW(),
 		disableSW(),
+
+		enableWifi(),
+		disableWifi(),
 
 		/* Pollingでスイッチの状態をチェック */
 		pollingSW(),
@@ -126,7 +131,9 @@ private:
 	bool
 		_swEnableFlg = false,/* SWの有効無効化 */
 		_swflg = false, /* SWの状態を保持 */
-		_swPushingflg = false;
+		_swPushingflg = false,
+		_wifiEnableFlg = true,/* Wi-Fiの有効無効化 */
+		_configureChangedFlg = false; /* 設定を変更して再起動するフラグ */
 
 	int
 		_bootMode = -1,	/* Boot状態を管理　-1:初期化中 0:起動中 1:通常起動 2:書き込みモード */

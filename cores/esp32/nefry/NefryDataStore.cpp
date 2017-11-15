@@ -110,6 +110,20 @@ bool NefryDataStore_lib::setModulePass(String pass)
 	return nefryDataStorePreferences.putString("ModulePass", pass);
 }
 
+bool NefryDataStore_lib::setWifiBoot(int mode)
+{
+	_readCacheLong[11] = mode;
+	_readCacheFlg[15] = true;
+	return nefryDataStorePreferences.putInt("WifiBoot", mode);
+}
+
+bool NefryDataStore_lib::setWebServerMode(int mode)
+{
+	_readCacheLong[12] = mode;
+	_readCacheFlg[16] = true;
+	return nefryDataStorePreferences.putInt("WebServerMode", mode);
+}
+
 /* 取得 */
 
 String NefryDataStore_lib::getModuleID()
@@ -205,5 +219,22 @@ String NefryDataStore_lib::getModulePass()
 	return _readCacheStr[14];
 }
 
+int NefryDataStore_lib::getWifiBoot()
+{
+	if (_readCacheFlg[15] == false) {
+		_readCacheLong[11] = nefryDataStorePreferences.getInt("WifiBoot", 1);
+		_readCacheFlg[15] = true;
+	}
+	return _readCacheLong[11];
+}
+
+int NefryDataStore_lib::getWebServerMode()
+{
+	if (_readCacheFlg[16] == false) {
+		_readCacheLong[12] = nefryDataStorePreferences.getInt("WebServerMode", 1);
+		_readCacheFlg[16] = true;
+	}
+	return _readCacheLong[12];
+}
 
 NefryDataStore_lib NefryDataStore;

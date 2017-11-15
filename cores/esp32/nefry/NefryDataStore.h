@@ -36,7 +36,9 @@ public:
 		setStorageStr(String str, int pointer),
 		setConnectSSID(String str, int pointer),
 		setConnectPass(String str, int pointer),
-		setBootSelector(int mode);
+		setBootSelector(int mode),
+		setWifiBoot(int mode),
+		setWebServerMode(int mode);
 		
 	String
 		getModuleID(),
@@ -49,14 +51,16 @@ public:
 		getConnectPass(int pointer);
 
 	int
-		getBootSelector();
+		getBootSelector(),
+		getWebServerMode(),
+		getWifiBoot();
 
 	long
 		getStorageValue(int pointer);
 private:
 	bool _readCacheFlg[31];
 	String _readCacheStr[20];
-	long _readCacheLong[11];
+	long _readCacheLong[13];
 	Preferences nefryDataStorePreferences;
 };
 extern NefryDataStore_lib NefryDataStore;
